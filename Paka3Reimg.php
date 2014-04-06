@@ -47,7 +47,7 @@ class Paka3Reimg {
     }   
     
     //合成元の画像のIDとパス
-    $imgIDs=array_unique($_POST['imgID']);
+    $imgIDs=$_POST['imgID'] ? array_unique($_POST['imgID']) : array();
     foreach($imgIDs as $imgID){
       $imgPath = get_attached_file($imgID);
      
