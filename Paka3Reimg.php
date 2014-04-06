@@ -390,7 +390,18 @@ EOS;
             return false;
         }
   }
-
+  //######################
+  //画像のIDなどを全部取得
+  //######################
+  function imageAllList(){
+    $images = get_children(array(
+      'post_parent' => "",
+      'posts_per_page' => -1,
+      'post_type' => 'attachment',
+      'post_mime_type' => 'image',
+      'order' => 'ASC'));
+    return $images;
+  }
   
   //######################
   //読み込むCSS&
