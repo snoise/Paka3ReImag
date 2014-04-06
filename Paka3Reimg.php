@@ -2,7 +2,7 @@
 /*
 Plugin Name: Paka3Reimg
 Plugin URI: http://www.paka3.com/wpplugin
-Description: 特定の画像を選択し複製後、フィルターを適用後、サムネイルを再構成してみる
+Description: 画像を選択し複製後、フィルターを適用後、サムネイルを再構成してみる
 Author: Shoji ENDO
 Version: 0.1
 Author URI:http://www.paka3.com/
@@ -206,67 +206,7 @@ EOS;
   }
   
   
-  //######################
-  //画像と画像をを合成する例
-  //######################
-  function imageMergePic($imgPath,$imgPath2){
-       //合成元
-       $im01 = $this->paka3_imagecreate($imgPath);
-       $im01X = 0;
-       $im01Y = 0;
-       
-       //合成する画像
-       $im02 =  $this->paka3_imagecreate($imgPath2);
-       $im02Width = imagesx($im02);
-       $im02Height = imagesy($im02);
-       
-       //右下
-       $im01X=imagesx($im01)-$im02Width;
-       $im01Y=imagesy($im01)-$im02Height;
-       
-       //合成
-       //透過を適用する場合はこっち
-       if($im01 && $im02 && imagecopy($im01, $im02, $im01X, $im01Y, 0, 0, $im02Width, $im02Height)){
-          $str = '※画像の合成が成功しました。<br />';
-          //保存
-          $this->paka3_image($im01, $imgPath);
-          imagedestroy($im01);imagedestroy($im02);
-       }else{
-          $str = '画像の合成が失敗しました。<br />';
-       }
-       
-    return $str;
-  }
-  //######################
-  //画像を合成する例
-  //######################
-  function imageMerge($imgPath){
-       //合成元
-       $im01 = imagecreatefromjpeg($imgPath);
-       
-       //合成する画像
-       $im02 =  imagecreatetruecolor(200, 200);
-       $bgColor = imagecolorallocate($img, 255, 255, 255);//背景色セット
-       imagefill($im02, 0, 0, $bgColor); // 背景を塗る。
-       imagecolortransparent($im02,$bgColor);//透明化
-       // 楕円の色を選択します
-       $color = imagecolorallocate($im02, 220, 90, 90);
-       imagefilledellipse($im02, 55, 55, 110, 110, $color);
-       
-       //合成
-       //imagecopy($im01, $im02, 0, 0, 0, 0, 200, 200,100);
-       //透過を適用する場合はこっち
-       if($im01 && $im02 && imagecopymerge($im01, $im02, 200, 200, 0, 0, 200, 200)){
-          $str = '※文字列合成が成功しました。<br />';
-          //保存
-          imagejpeg($im01, $imgPath);
-          imagedestroy($im01);imagedestroy($im02);
-       }else{
-          $str = '文字列合成が失敗しました。<br />';
-       }
-       
-    return $str;
-  }
+ 
   //######################
   //テキスト合成例
   //######################
@@ -339,24 +279,6 @@ EOS;
   }
   
   
-  //######################
-  //GDのフィルターを使ってみる
-  //######################
-  function imageGdfunc($imgPath){
-       //イメージの作成
-       $im = $this->paka3_imagecreate($imgPath);
-       
-       if($im && imagefilter($im, IMG_FILTER_GRAYSCALE)){
-	  $str = '※変換が成功しました。<br />';
-          //保存
-          $this->paka3_image($im,$imgPath);
-          imagedestroy($im);
-       }else{
-          $str = '変換が失敗しました。<br />';
-          if(!$im) $str .= 'jpeg/png/gif以外の形式には対応していません<br />';
-       }
-    return $str;
-  }
   
   //######################
   //画像のイメージ作成(jpeg/png/gif)
@@ -390,18 +312,7 @@ EOS;
             return false;
         }
   }
-  //######################
-  //画像のIDなどを全部取得
-  //######################
-  function imageAllList(){
-    $images = get_children(array(
-      'post_parent' => "",
-      'posts_per_page' => -1,
-      'post_type' => 'attachment',
-      'post_mime_type' => 'image',
-      'order' => 'ASC'));
-    return $images;
-  }
+
   
   //######################
   //読み込むCSS&
