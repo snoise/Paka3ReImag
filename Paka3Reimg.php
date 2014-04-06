@@ -27,7 +27,7 @@ class Paka3Reimg {
   //管理メニューの設定
   //######################
   function adminAddMenu() {
-    add_submenu_page("options-general.php", 'Paka3画像加工', 'Paka3画像加工',  'edit_themes', 'paka3_re_img', array($this,'paka3_re_img'));
+    add_submenu_page("options-general.php", 'paka3画像署名', 'paka3画像署名',  'edit_themes', 'paka3_re_img', array($this,'paka3_re_img'));
     add_action('admin_enqueue_scripts', array($this, 'admin_scripts'));
   }
    
